@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-US">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Search</title>
+	  
+      <link rel="stylesheet" href="css/template-style.css">
+      <link rel="stylesheet" href="css/components.css">
+      <link rel="stylesheet" href="css/responsee.css">
+      <link rel="stylesheet" href="css/icons.css">
+      <link rel="stylesheet" href="css/ng-table.min.css">
+      <link rel="stylesheet" href="css/bootstrap-slider.css">
+      <link rel="stylesheet" href="css/bootstrap-slider.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">    
+    
+      <!-- CUSTOM STYLE -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <script type="text/javascript" src="js/template-scripts.js"></script>     
+		
+	  
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+	 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
+   </head>
+   <body class="size-1140" id="HomeController" data-ng-app="myApp" data-ng-controller="HomeController"> 	  
+      <!-- TOP NAV WITH LOGO -->
+      <header>
+         <nav id="topbar">
+            <div class="line" style="max-width:85%">
+               <div class="top-nav right">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul>
+				     <li><a id="signup" href="RegistrationForm.html"><span class="glyphicon glyphicon-user"></span>Sign up</a></li>
+				     <li class="active-item"><a id="signin" href="LoginForm.html"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+			      </ul>
+			   </div>
+            </div>
+         </nav>
+         <nav>
+            <div class="line">
+               <div class="s-12 l-2">
+                  <p class="logo"><strong>Travel</strong>er</p>
+               </div>
+               <div class="top-nav s-12 l-10">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul class="right">
+                     <li><a href="http://localhost:8080/Traveler/#carousel" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#search" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Search</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#about-us" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">About Us</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#contact" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Contact</a></li> 
+                     <li><a href="Administrator.html" id="roleNavigation" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"></a></li>
+			      </ul>
+			   </div>
+            </div>
+         </nav>
+      </header>  
+      
+      <div class="container-fluid" style="width:80%;">
+      	<div class="line left">
+			<button type="button" class="btn btn-primary" style="margin-top:150px;" data-ng-click="downloadFiles()">Export XML files</button>
+		</div>
+	  </div>
+      <div class="line"></div>
+      <div class="container-fluid" style="width:100%;margin-top:20px;">
+		<div>
+		  <center>
+	    	<section>
+		  		<div style="width:80%;">
+	    		 <div>
+	    			<table class="table table-striped table-bordered table-hover" id="mydata" cellspacing="0" width="100%" style="font-size:15px;">
+						<thead>
+							<tr>
+								<th>UserID</th>
+								<th>Username</th>
+								<th>FirstName</th>
+								<th>LastName</th>
+								<th>Role</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Location</th>
+								<th>Active</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="u in Userlist.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+								<td>{{u.userID}}</td>
+								<td>{{u.username}}</td>
+								<td>{{u.firstName}}</td>
+								<td>{{u.lastName}}</td>
+								<td>{{u.role}}</td>
+								<td>{{u.email}}</td>
+								<td>{{u.phone}}</td>
+								<td>{{u.lcoation}}</td>
+								<td>{{u.active}}</td>
+								<th data-ng-if="u.active=='0' && u.role!='Admin' && u.role!='Renter'">
+		    						<form action="webapi/admin/activation" method="post">
+				    					<input type="hidden" name="UserID" value="{{u.userID}}"/>
+				    					<input type="hidden" name="Activation" value="1"/>
+			  							<input type="submit" name="doPost" value="Activate"/>
+		    						</form>
+		    					</th>
+		    					<th data-ng-if="u.active=='1' && u.role!='Admin' && u.role!='Renter'">
+		    						<form action="webapi/admin/activation" method="post">
+				    					<input type="hidden" name="UserID" value="{{u.userID}}"/>
+				    					<input type="hidden" name="Activation" value="0"/>
+			  							<input type="submit" name="doPost" value="Deactivate" />
+		    						</form>
+		    					</th>
+		    					<td data-ng-if="u.role=='Admin' || u.role=='Renter'"></td>
+							</tr>
+						</tbody>
+					</table>
+				  </div>	
+			   	  <pagination total-items="pagesNumber" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" max-size="10"></pagination>					
+	    		</div>
+		  	</section>
+		  </center>
+		</div>
+	  </div>
+	  
+	  
+			
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+      <script src="js/ui-bootstrap-tpls.min.js"></script> 
+      <script src="js/dirPagination.js"></script> 
+      <script src="js/ng-table.min.js"></script>   
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    
+      <script>
+		var app = angular.module("myApp", ['ngCookies', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+		app.controller("HomeController", ['$scope', '$http', '$cookies', '$location', '$window',  function($scope, $http, $cookies, $location, $window) {		
+
+			$scope.currentPage = 1;
+			$scope.viewby = 10;
+			$scope.itemsPerPage = 10;
+			$scope.maxSize = 5; //Number of pager buttons to show
+
+			$scope.setPage = function (pageNo) {
+			  $scope.currentPage = pageNo;
+			};
+
+			$scope.pageChanged = function() {
+			  console.log('Page changed to: ' + $scope.currentPage);
+			};
+
+			$scope.setItemsPerPage = function(num) {
+			  $scope.itemsPerPage = num;
+			  $scope.currentPage = 1; //reset to first paghe
+			}
+
+		    $scope.loginflag = false;
+			var logincookie = $cookies.get('usernameCookie');
+			
+			if (logincookie == null) {
+	 	        $scope.loginflag = false;
+	 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Sign up';
+	 	        document.getElementById('signup').href = "RegistrationForm.html";
+	 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Login';
+	 	        document.getElementById('signin').href = 'LoginForm.html';
+	 	        document.getElementById('roleNavigation').style.visibility = 'hidden';
+	 	        document.getElementById('roleNavigation').innerHTML = ' ';
+			} else {
+	 	        $scope.loginflag = true;
+	 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Profile';
+	 	        document.getElementById('signup').href = "Profile.html";
+	 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Logout';
+	 	        document.getElementById('signin').href = "Logout.html";
+	 	        
+	 	        if ($cookies.get('roleCookie') == "Admin") {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+		 	        document.getElementById('roleNavigation').innerHTML = 'Admin';
+		 	        document.getElementById('roleNavigation').href = 'Administrator.html';
+	 	        }
+	 	        else if ($cookies.get('roleCookie') == "Host" || $cookies.get('roleCookie') == "Host-Renter") {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+		 	        document.getElementById('roleNavigation').innerHTML = 'Host';
+		 	        document.getElementById('roleNavigation').href = 'Host.html';
+	 	        }
+	 	        else {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'hidden';
+	 	        }
+			}
+
+			$http({
+	        	method : "GET",
+	            url : 'http://localhost:8080/Traveler/webapi/admin'
+	        }).then(function successCallback(response) {
+	            // this callback will be called asynchronously
+	            // when the response is available
+			    $scope.Userlist = response.data; 
+  				$scope.pagesNumber = $scope.Userlist.length;
+	        }, function errorCallback(response) {
+	            // called asynchronously if an error occurs
+	            // or server returns response with an error status.
+  				$scope.pagesNumber = 0;
+	        });
+			
+			$scope.downloadFiles = function() {
+				$http({
+		        	method : "GET",
+		            url : 'http://localhost:8080/Traveler/webapi/admin/export/users'
+		        }).then(function successCallback(response) {
+		        	saveFileAs(response); 
+		        }, function errorCallback(response) {
+
+		        });
+
+				$http({
+		        	method : "GET",
+		            url : 'http://localhost:8080/Traveler/webapi/admin/export/listings'
+		        }).then(function successCallback(response) {
+		        	saveFileAs(response); 
+		        }, function errorCallback(response) {
+
+		        });
+
+				$http({
+		        	method : "GET",
+		            url : 'http://localhost:8080/Traveler/webapi/admin/export/bookings'
+		        }).then(function successCallback(response) {
+		        	saveFileAs(response); 
+		        }, function errorCallback(response) {
+
+		        });
+
+				$http({
+		        	method : "GET",
+		            url : 'http://localhost:8080/Traveler/webapi/admin/export/reviews'
+		        }).then(function successCallback(response) {
+		        	saveFileAs(response); 
+		        }, function errorCallback(response) {
+
+		        });
+			}
+			
+			function saveFileAs(response) {
+		        var contentDisposition = response.headers("content-disposition");
+		        var fileName = contentDisposition.substr(contentDisposition.indexOf("filename=") + 9);
+		        fileName = fileName.replace(/\"/g, "");
+		        var contentType = response.headers("content-type");
+		        var file = new Blob([response.data], { type: contentType });
+		        var fileURL = window.URL.createObjectURL(file);
+		        var a = document.createElement("a");
+		        document.body.appendChild(a);
+		        a.href = fileURL;
+		        a.download = fileName;
+		        a.click();
+		    }
+						
+		 }]);
+	  </script>	  
+   </body>
+</html>  
+    
+    							

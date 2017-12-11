@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="css/template-style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsee.css">
+    <link rel="stylesheet" href="css/icons.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CUSTOM STYLE -->
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>    
+    <script type="text/javascript" src="js/template-scripts.js"></script> 
+     
+	
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/js/bootstrap.min.js">
+	  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<style type="text/css">
+	    .wrapper{
+		    margin-top: 150px;
+		}
+		.form-signin{
+		  max-width: 420px;
+		  padding: 30px 38px 66px;
+		  margin: 0 auto;
+		  border: 1px solid #cccccc;
+		}
+		.input-group{
+		    height: 45px;
+		    margin-bottom: 15px;
+		    border-radius: 0px;
+		}
+		.form-control{
+		    height: 45px;
+		}
+		.input-group:hover span i{
+		    color: #60B99A;
+		}
+		.btn-block{
+		    border-radius: 0px;
+		    margin-top: 25px;
+		    background-color: #60B99A;
+		    border: none;
+		}
+		.btn-block:hover{
+		    background-color: #92c500;
+		}
+		.bol{
+		    position: relative;
+		    margin-top: -40px;
+		    color: #60B99A;
+		}
+	    textarea {
+	        padding:3px;
+	        width:96%;
+	        height:100px;
+	    }
+	    textarea:focus {
+	        background:#ebf8fd;
+	        text-indent: 0;
+	        z-index: 1;
+	        color: #373737;
+	        opacity:0.6;
+	        box-shadow:0 0 5px rgba(4, 129, 177, 0.5);
+	        border-color:#ccc;
+	    }	
+		
+		input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+		input[type=checkbox] + label:before {
+		  font-family: FontAwesome;
+		  font-size:20px;
+		  margin-left:20px;
+		  display: inline-block;
+		}
+		
+		input[type=checkbox] + label:before { content: "\f096"; font-size:20px;} /* unchecked icon */
+		input[type=checkbox] + label:before { letter-spacing: 10px; font-size:20px;} /* space between checkbox and label */
+		
+		input[type=checkbox]:checked + label:before { content: "\f046"; font-size:20px;} /* checked icon */
+		input[type=checkbox]:checked + label:before { letter-spacing: 5px; font-size:20px;} /* allow space for check mark */
+	</style>
+</head>
+
+<body class="size-1140" data-ng-app="myApp" data-ng-controller="RegisterController">
+      <!-- TOP NAV WITH LOGO -->
+      <header>
+         <nav id="topbar">
+            <div class="line" style="max-width:85%">
+               <div class="top-nav right">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul>
+				     <li class="active-item"><a id="signup" href="RegistrationForm.html"><span class="glyphicon glyphicon-user"></span>Sign up</a></li>
+				     <li><a id="signin" href="LoginForm.html"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+			      </ul>
+			   </div>
+            </div>
+         </nav>
+         <nav>
+            <div class="line">
+               <div class="s-12 l-2">
+                  <p class="logo"><strong>Travel</strong>er</p>
+               </div>
+               <div class="top-nav s-12 l-10">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul class="right">
+                     <li><a href="http://localhost:8080/Traveler/#carousel" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#search" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Search</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#about-us" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">About Us</a></li>
+                     <li><a href="http://localhost:8080/Traveler/#contact" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Contact</a></li> 
+                     <li><a href="Administrator.html" id="roleNavigation" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"></a></li>
+			      </ul>
+			   </div>
+            </div>
+         </nav>
+      </header>  
+     
+      <section>
+     	<div class = "container">
+            <div class="wrapper">
+                <form data-ng-submit="register(user)" class="form-signin"> 
+                    <div class="row text-center bol"><i class="fa fa-circle"></i></div>
+                    <b><span style="color:red;" id="errormessage"></span></b>
+                    <hr class="spartan">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-user"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Username" placeholder="* Username" data-ng-model="user.Username"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                       <input type="password" class="form-control" id="pass1" name="Password" placeholder="* Password" data-ng-model="user.Password"/>        	  
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                       <input type="password" class="form-control" id="pass2" name="Confirm_Password" placeholder="* Confirm Password" data-ng-model="user.Password_Confirm"/>         	  
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-user"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Name" placeholder="* First Name" data-ng-model="user.Firstname"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-user"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Surname" placeholder="Last Name" data-ng-model="user.Lastname"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Email" placeholder="E-mail" data-ng-model="user.Email"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-phone-square" aria-hidden="true"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Phone" placeholder="Telephone" data-ng-model="user.Phone"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon1">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </span>
+                       <input type="text" class="form-control" name="Location" placeholder="Location" data-ng-model="user.Location"/>
+                    </div>
+	                <div>
+	                  <h4><i>* Choose a Role or both:</i></h4>
+					  <input id="box1" type="checkbox" name="Role1" value="Renter" data-ng-model="user.Role1"/>
+					  <label for="box1" style="font-size:20px;font-weight: normal;">Renter</label><br>
+					  <input id="box2" type="checkbox" name="Role2" value="Host" data-ng-model="user.Role2"/>
+					  <label for="box2" style="font-size:20px;font-weight: normal;">Host</label><br>
+					</div>
+	                <div>
+	                    <textarea name="Explanation" placeholder="Write us about your thoughts and dreams... " data-ng-model="user.Explanation"></textarea>
+	                </div>    
+	                <div>
+						<input id="box3" type="checkbox" name="Accept" value="Accept" data-ng-model="user.Activation"/>
+						<label for="box3" style="font-size:14px;font-weight: normal;"><i>I accept the terms of use</i><br></label><br>
+	                </div>   
+                    <button class="btn btn-lg btn-primary btn-block"  name="register" value="Register" type="Submit">Register</button>  			
+                </form>			
+            </div>
+		</div>
+	 </section>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+
+	<script>
+	var app = angular.module("myApp", ['ngCookies']);
+	app.controller("RegisterController", ['$scope', '$http', '$cookies', '$location', '$window',  function($scope, $http, $cookies, $location, $window) {		
+
+	    $scope.loginflag = false;
+		var logincookie = $cookies.get('usernameCookie');
+		
+		if (logincookie == null) {
+ 	        $scope.loginflag = false;
+ 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Sign up';
+ 	        document.getElementById('signup').href = "RegistrationForm.html";
+ 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Login';
+ 	        document.getElementById('signin').href = 'LoginForm.html';
+ 	        document.getElementById('roleNavigation').style.visibility = 'hidden';
+ 	        document.getElementById('roleNavigation').innerHTML = ' ';
+		} else {
+ 	        $scope.loginflag = true;
+ 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Profile';
+ 	        document.getElementById('signup').href = "Profile.html";
+ 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Logout';
+ 	        document.getElementById('signin').href = "Logout.html";
+ 	        
+ 	        if ($cookies.get('roleCookie') == "Admin") {
+ 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+	 	        document.getElementById('roleNavigation').innerHTML = 'Admin';
+	 	        document.getElementById('roleNavigation').href = 'Administrator.html';
+ 	        }
+ 	        else if ($cookies.get('roleCookie') == "Host" || $cookies.get('roleCookie') == "Host-Renter") {
+ 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+	 	        document.getElementById('roleNavigation').innerHTML = 'Host';
+	 	        document.getElementById('roleNavigation').href = 'Host.html';
+ 	        }
+ 	        else {
+ 	        	document.getElementById('roleNavigation').style.visibility = 'hidden';
+ 	        }
+		}
+		
+		$scope.register = function(user) {
+
+			var username, password, firstname, lastname, email, phone, location, role, explanation;
+			var role1 = user.Role1 , role2 = user.Role2;
+			
+			if (user === undefined || user.Username === undefined || user.Password === undefined || user.Username.length <= 0 || user.Password.length <= 0 
+				|| user.Password_Confirm === undefined || user.Password_Confirm.length <= 0 || (role1 == null && role2 == null) || user.Firstname === undefined || user.Firstname.length <= 0) {
+                document.getElementById("errormessage").innerHTML = "Please fill all the fields";
+				return;
+			}
+			if (user.Activation === undefined) {
+                document.getElementById("errormessage").innerHTML = "Accept the terms of use";
+				return;
+			}
+			
+			if (!checkPassword(user.Password, user.Password_Confirm)) {
+                document.getElementById("errormessage").innerHTML = "Passwords not match";
+                document.getElementById("pass1").innerHTML = "";
+                document.getElementById("pass2").innerHTML = "";
+				return;
+			}
+			
+			if (user.Username) username = user.Username;
+			if (user.Password) password = user.Password;
+			if (user.Password_Confirm) password_confirm = user.Password_Confirm;
+			if (user.Firstname) firstname = user.Firstname;
+			if (user.Lastname) lastname = user.Lastname;
+			if (user.Location) location = user.Location;
+			if (user.Explanation) explanation = user.Explanation;
+			if (user.Email) email = user.Email;
+			if (user.Phone) phone = user.Phone;
+			
+			if (role1 == null && role2 != null) role = "Host";
+			if (role1 != null && role2 == null) role = "Renter";
+			if (role1 != null && role2 != null) role = "Host-Renter";
+			
+			var newuser = {username:username, password:password, firstname:firstname, lastname:lastname, location:location, explanation:explanation, email:email, phone:phone, role:role};
+
+			$http({
+                method : "POST",
+                url : 'http://localhost:8080/Traveler/webapi/register',
+                data : angular.toJson(newuser),
+                headers : { 'Content-Type' : 'application/json' }
+            }).then(function successCallback(response) {
+                var userstatus = JSON.stringify(response.data);
+                redirect('http://localhost:8080/Traveler/');
+            },function errorCallback(response) {
+                document.getElementById("errormessage").innerHTML = response.data;
+                document.getElementById("pass1").innerHTML = "";
+                document.getElementById("pass2").innerHTML = "";
+            });
+		}
+		
+		function checkPassword(password1, password2) {
+			return (password1 === password2);
+		}
+
+		function redirect(url) {
+			window.location = url;
+		}
+		
+	}]);
+    
+	
+	</script>
+    
+    
+</body>
+</html>
+
+    

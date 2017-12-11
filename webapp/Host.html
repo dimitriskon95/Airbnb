@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en-US">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Traveler</title>
+      <link rel="stylesheet" href="css/template-style.css">
+      <link rel="stylesheet" href="css/components.css">
+      <link rel="stylesheet" href="css/responsee.css">
+      <link rel="stylesheet" href="css/icons.css">
+      <link rel="stylesheet" href="css/ng-table.min.css">
+      <link rel="stylesheet" href="css/bootstrap-slider.css">
+      <link rel="stylesheet" href="css/bootstrap-slider.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">    
+    
+      <!-- CUSTOM STYLE -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <script type="text/javascript" src="js/template-scripts.js"></script>     
+		
+	  
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+	 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
+	  
+	  <link rel="stylesheet" type="text/css" href="Calendar/codebase/fonts/font_roboto/roboto.css"/>
+	  <link rel="stylesheet" type="text/css" href="Calendar/codebase/dhtmlxcalendar.css"/>
+	  <script src="Calendar/codebase/dhtmlxcalendar.js"></script>
+	  <script>
+		var myCalendar1;
+		var myCalendar2;
+		function doOnLoad() {
+			myCalendar1 = new dhtmlXCalendarObject(["calendarMenu1"]);
+			myCalendar2 = new dhtmlXCalendarObject(["calendarMenu2"]);
+		}
+	  </script>
+	  <style>
+		span.stars, span.stars span { display: block; background: url('img/stars.png') 0 -16px repeat-x; width: 80px; height: 16px; left:10px; right:10px; }
+		span.stars span { background-position: 0 0; }
+		
+		.btn-select { position: relative; padding: 0; min-width: 236px; width: 100%; border-radius: 0;  margin-bottom: 20px; }
+		.btn-select .btn-select-value { padding: 6px 12px; display: block; position: absolute; left: 0; right: 34px; text-align: left; text-overflow: ellipsis; overflow: hidden; 
+										border-top: none !important; border-bottom: none !important; border-left: none !important; }
+		.btn-select .btn-select-arrow { float: right; line-height: 20px; padding: 6px 10px; top: 0; }
+		.btn-select ul { display: none; background-color: white; color: black; clear: both; list-style: none; padding: 0; margin: 0; border-top: none !important; position: absolute;
+		    			 left: -1px; right: -1px; top: 33px;  z-index: 999; }
+		.btn-select ul li { padding: 3px 6px; text-align: left; }
+		.btn-select ul li:hover { background-color: #f4f4f4; }
+		.btn-select ul li.selected { color: white; }
+		
+		/* Success Start */
+		.btn-select.btn-success:hover, .btn-select.btn-success:active, .btn-select.btn-success.active { border-color: #4cae4c; }
+		.btn-select.btn-success ul li.selected { background-color: #4cae4c; color: white; }
+		.btn-select.btn-success ul { border: #4cae4c 1px solid; }
+		.btn-select.btn-success .btn-select-value { background-color: #5cb85c; border: #4cae4c 1px solid; }
+		.btn-select.btn-success:hover, .btn-select.btn-success.active { background-color: #449d44; }
+		/* Success End */
+						
+		.btn-select.btn-select-light .btn-select-value { background-color: white; color: black; }
+		
+		.hideContent {
+		    overflow: hidden;
+		    line-height: 1em;
+		    height: 2em;
+		}
+		
+		.showContent {
+		    line-height: 1em;
+		    height: auto;
+		}
+		.showContent{
+		    height: auto;
+		}
+		
+				
+		.checkbox {
+		    padding-left: 30px; 
+		    padding-top: 10px; 
+		}
+		
+		.checkbox label {
+		    display: inline-block;
+		    position: relative;
+		    padding-left: 5px; 
+		}
+		
+		.checkbox label::before {
+		    content: "";
+		    display: inline-block;
+		    position: absolute;
+		    width: 17px;
+		    height: 17px;
+		    left: 0;
+		    margin-left: -20px;
+		    border: 1px solid #cccccc;
+		    border-radius: 50%;
+		    background-color: #fff;
+		    -webkit-transition: border 0.15s ease-in-out;
+		    -o-transition: border 0.15s ease-in-out;
+		    transition: border 0.15s ease-in-out; 
+		 }
+		
+		 .checkbox label::after {
+		    display: inline-block;
+		    position: absolute;
+		    content: " ";
+		    width: 11px;
+		    height: 11px;
+		    left: 3px;
+		    top: 3px;
+		    margin-left: -20px;
+		    border-radius: 50%;
+		    background-color: #555555;
+		    -webkit-transform: scale(0, 0);
+		    -ms-transform: scale(0, 0);
+		    -o-transform: scale(0, 0);
+		    transform: scale(0, 0);
+		    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); }
+		 .checkbox input[type="checkbox"] {
+		    opacity: 0; }
+		 .checkbox input[type="checkbox"]:focus + label::before {
+		      outline: thin dotted;
+		      outline: 5px auto -webkit-focus-ring-color;
+		      outline-offset: -2px; }
+		 .checkbox input[type="checkbox"]:checked + label::after {
+		      -webkit-transform: scale(1, 1);
+		      -ms-transform: scale(1, 1);
+		      -o-transform: scale(1, 1);
+		      transform: scale(1, 1); }
+		 .checkbox input[type="checkbox"]:disabled + label {
+		      opacity: 0.65; }
+		   .checkbox input[type="checkbox"]:disabled + label::before {
+		        cursor: not-allowed; }
+		  .checkbox.checkbox-inline {
+		       margin-top: 0; 
+		   }
+		   
+		.radio-info input[type="radio"] + label::after {
+		  background-color: #5bc0de; }
+		.radio-info input[type="radio"]:checked + label::before {
+		  border-color: #5bc0de; }
+		.radio-info input[type="radio"]:checked + label::after {
+		  background-color: #5bc0de; }
+		  
+				
+		.radio {
+		    padding-left: 30px; 
+		    padding-top: 10px; 
+		}
+		
+		.radio label {
+		    display: inline-block;
+		    position: relative;
+		    padding-left: 5px; 
+		}
+		
+		.radio label::before {
+		    content: "";
+		    display: inline-block;
+		    position: absolute;
+		    width: 17px;
+		    height: 17px;
+		    left: 0;
+		    margin-left: -20px;
+		    border: 1px solid #cccccc;
+		    border-radius: 50%;
+		    background-color: #fff;
+		    -webkit-transition: border 0.15s ease-in-out;
+		    -o-transition: border 0.15s ease-in-out;
+		    transition: border 0.15s ease-in-out; 
+		 }
+		
+		 .radio label::after {
+		    display: inline-block;
+		    position: absolute;
+		    content: " ";
+		    width: 11px;
+		    height: 11px;
+		    left: 3px;
+		    top: 3px;
+		    margin-left: -20px;
+		    border-radius: 50%;
+		    background-color: #555555;
+		    -webkit-transform: scale(0, 0);
+		    -ms-transform: scale(0, 0);
+		    -o-transform: scale(0, 0);
+		    transform: scale(0, 0);
+		    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+		    transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); }
+		 .radio input[type="radio"] {
+		    opacity: 0; }
+		 .radio input[type="radio"]:focus + label::before {
+		      outline: thin dotted;
+		      outline: 5px auto -webkit-focus-ring-color;
+		      outline-offset: -2px; }
+		 .radio input[type="radio"]:checked + label::after {
+		      -webkit-transform: scale(1, 1);
+		      -ms-transform: scale(1, 1);
+		      -o-transform: scale(1, 1);
+		      transform: scale(1, 1); }
+		 .radio input[type="radio"]:disabled + label {
+		      opacity: 0.65; }
+		   .radio input[type="radio"]:disabled + label::before {
+		        cursor: not-allowed; }
+		  .radio.radio-inline {
+		       margin-top: 0; 
+		   }
+		   
+		.radio-info input[type="radio"] + label::after {
+		  background-color: #5bc0de; }
+		.radio-info input[type="radio"]:checked + label::before {
+		  border-color: #5bc0de; }
+		.radio-info input[type="radio"]:checked + label::after {
+		  background-color: #5bc0de; }
+		  
+		
+		.search-result .col-md-7 { position: relative; }
+		.search-result h3 { font: 500 normal 1.375em "Roboto",Arial,Verdana,sans-serif; margin-top: 0 !important; margin-bottom: 10px !important;color:black; }
+		.search-result h6 { font: "Roboto",Arial,Verdana,sans-serif; margin-top: 0 !important; margin-bottom: 10px !important;color:black; }
+		.search-result h3 > a, .search-result i { color: #248dc1 !important; }
+		.search-result p { font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif; color:black; } 
+		.search-result span.plus { position: absolute; right: 0; top: 126px; }
+		.search-result span.plus a { background-color: #248dc1; padding: 5px 5px 3px 5px; }
+		.search-result span.plus a:hover { background-color: #414141; }
+		.search-result span.plus a i { color: #fff !important; }
+	    .search-result span.border { display: block; width: 97%; margin: 0 15px; border-bottom: 1px dotted #ccc; }
+	    
+	  	.filter-header{padding:0;max-width:100%;margin:50px auto 150px auto;height:56px;border-radius:0 5px 5px 5px;border:solid 3px;}
+		.filter-header form{border:0;padding:0;margin:0;}
+		.filter-header input{height:50px;margin:0;float:left;border:0;padding:5px 10px;font-size:1.15rem;font-weight:normal;border-right:1px solid #dedede;}
+		.filter-header input:last-child{border-right:0;}
+		.filter-header .input-large{width:35%;background:#fff url("img/location.png") no-repeat scroll left 6px;padding-left:40px;}
+		.filter-header .date-input{width:17%;background:#fff url("img/calendar.png") no-repeat scroll right 12px;padding-right:10px;font-size:1.25rem;}
+		.filter-header .selector{position:relative;min-width:60px;width:15%;line-height:0;float:left;color:#999;font-size:1.05rem;height:50px;}
+		.selector select{position:absolute;z-index:1;filter:alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";-moz-opacity:0;-khtml-opacity:0;opacity:0;height:50px;width:100%;-webkit-appearance:menulist-button;line-height:30px;}
+		.selector select:hover{cursor:pointer;}
+		.selector span.custom-select{display:inline-block;line-height:52px;padding:0 10px;font-weight:normal;width:100%;overflow:hidden;white-space:nowrap;}
+		span.custom-select{padding-left:15px;padding-right:15px;height:50px;color:#565656;}
+		span.custom-select{background:#fff;border:none;line-height:normal;font-size:10[x];}
+		.selector span.custom-select:before{position:absolute;right:0;top:0;content:'';background:#999;width:24px;height:100%;}
+		.selector span.custom-select:after{pbootstrap.min.osition:absolute;right:9px;top:22px;border-top:5px solid #fff;border-left:3px solid transparent;border-right:3px solid transparent;content:"";}
+		.filter-header input[type="submit"]{width:16%;border:0;background-color: #012232;font-size:21px;color:#92c500;}
+		
+	  </style>
+	 
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjZyakAGGXbqUb4I6VWhI4sO3fn1KdLi4&callback=initMap" type="text/javascript"></script>
+      
+   	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>   
+   </head>
+   <body class="size-1140" onload="doOnLoad();" data-ng-app="myRoomApp" data-ng-controller="HostController" data-ng-init="init()"> 	  
+      <!-- TOP NAV WITH LOGO -->
+      <header>
+         <nav id="topbar">
+            <div class="line" style="max-width:85%">
+               <div class="top-nav right">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul>
+				     <li class="active-item"><a id="signup" href="RegistrationForm.html"><span class="glyphicon glyphicon-user"></span>Sign up</a></li>
+				     <li><a id="signin" href="LoginForm.html"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+				  </ul>
+			   </div>
+            </div>
+         </nav>
+         <nav>
+            <div class="line">
+               <div class="s-12 l-2">
+                  <p class="logo"><strong>Travel</strong>er</p>
+               </div>
+               <div class="top-nav s-12 l-10">
+                  <p class="nav-text">Custom menu text</p>
+                  <ul class="right">
+                     <li><a href="index.html#carousel" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                     <li><a href="index.html#search" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Search</a></li>
+                     <li><a href="index.html#about-us" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">About Us</a></li>
+                     <li><a href="index.html#contact" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;">Contact</a></li> 
+                     <li><a href="Administrator.html" id="roleNavigation" style="font-family: 'Cabin', Helvetica, Arial, sans-serif;font-size: 13px;line-height: 25px;"></a></li>
+			      </ul>
+			   </div>
+            </div>
+         </nav>
+      </header> 
+			
+       <div class="container-fluid" style="max-width:100%;">
+		 <div>
+	       <section class="row" style="margin-top:180px;">
+	       		<div class="col-md-2"></div>
+		  		 <form data-ng-submit="createRoom()" class="col-md-8" id="myform">
+			         <div id="space" class="panel panel-default">
+			         	<div class="line" style="max-width:100%;">
+			         	   <h2 class="panel-heading">Name*</h2>
+						   <input type="text" class="form-control" name="Name" id="name" placeholder="Listing Name" style="height:40px;font-size:20px;width:80%;margin-left:42px;" data-ng-model="newroom.name"/>
+
+			         	   <div class="panel-body">
+			         	  		<h2>Room Type*</h2>
+			         	  		<div class="col-md-12">
+				                    <div class="radio radio-info radio-inline col-md-3">
+				                        <input id="roomType1" type="radio" name="roomtype" data-ng-model="newroom.privateRoom">
+				                        <label for="roomType1">Private room</label>
+				                    </div>
+				                    <div class="radio radio-info radio-inline col-md-3">
+				                        <input id="roomType2" type="radio" name="roomtype" data-ng-model="newroom.entireRoom">
+				                        <label for="roomType2">Entire home/apt</label>
+				                    </div>
+				                    <div class="radio radio-info radio-inline col-md-3">
+				                        <input id="roomType3" type="radio" name="roomtype" data-ng-model="newroom.sharedRoom">
+				                        <label for="roomType3">Shared room</label>
+				                    </div>
+				                </div>
+			                    <div class="line"></div>
+			                    <div class="line"></div>
+			                    <h2>Location*</h2>
+			                    <div class="col-md-12">
+				         	  		<div class="col-md-4">
+					                    <input type="text" style="height:35px;font-size:20px;%" placeholder="City" id="city" class="form-control" data-ng-model="newroom.location">
+					                </div>
+				         	  		<div class="col-md-4">
+					                </div>
+					                <div class="col-md-4">
+										<button type="button" class="btn btn-primary" data-ng-click="updateMapCity()">Update Map</button>
+									</div>
+								</div>
+			                    <div class="col-md-12" style="margin-top:20px;">
+					                <div class="col-md-4">
+					                    <input type="text" style="height:35px;font-size:20px;" placeholder="Latitude" id="latitude" class="form-control">
+					                </div>
+					                <div class="col-md-4">
+					                	<input type="text" style="height:35px;font-size:20px;" placeholder="Longitude" id="longitude" class="form-control">
+					                </div>
+					                <div class="col-md-4">
+										<button type="button" class="btn btn-primary" data-ng-click="updateMapParameters()">Update Map</button>
+									</div>
+								</div>
+			                    <div class="line"></div>
+			                    <br>
+						         <div id="googlemap" style="margin-left:20px;margin-top:13px;">
+						         	 <iframe id="mymap" width="600" height="450" frameborder="0" style="border:0"
+									   src="https://www.google.com/maps/embed/v1/place?key= AIzaSyA9h-Nt1_qROpPI3hbzvv51k7hxHLDRKkU&q=Athens;" allowfullscreen>
+									 </iframe>
+						         </div>
+			                    <br>
+			                    <div class="line"></div>
+			                    
+			                    <h2>Dates*</h2>
+			                    <div class="col-md-12">
+				         	  		<div class="col-md-4">
+										 <input id="calendarMenu1" class="date-input form-control" style="height:35px;font-size:20px;" placeholder="Start Date" id="startDate">
+									</div>
+					                <div class="col-md-4">
+										 <input id="calendarMenu2" class="date-input form-control" style="height:35px;font-size:20px;" placeholder="End Date" id="endDate">
+									</div>
+								</div>
+			                    <br>
+			                    <div class="line"></div>
+				                
+			                    <div>
+			         	  		  <h2>Provisions</h2>
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Beds: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="beds" name="quant[1]" class="form-control input-number" value="1" min="1" max="10" data-ng-model="newroom.beds">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Bathrooms: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[2]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="bathrooms" name="quant[2]" class="form-control input-number" value="1" min="1" max="10" data-ng-model="newroom.bathrooms">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[2]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Bedrooms: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[3]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="bedrooms" name="quant[3]" class="form-control input-number" value="1" min="1" max="10" data-ng-model="newroom.bedrooms">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[3]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Square Feet: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[4]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="squarefeet" name="quant[4]" class="form-control input-number" value="1" min="1" max="5000" data-ng-model="newroom.squareFeet">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[4]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Guests: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[6]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="guests" name="quant[6]" class="form-control input-number" value="1" min="1" max="10" data-ng-model="newroom.accommodates">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[6]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   </div>
+				         	   
+				         	   <div>
+				         	   	  <h2>Price</h2>					         	  
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Price per Night: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[7]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="price" name="quant[7]" class="form-control input-number" value="1" min="1" max="2000" data-ng-model="newroom.price">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[7]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   	  
+				         	   	  <div class="col-md-12">
+				         	   	  	 <div class="col-md-3">
+				         	   	  	    <h4>Extra People: </h4>
+				         	   	  	 </div>
+				         	   	  	 <div class="col-md-3">
+					         	   	    <div class="input-group">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[8]">
+								                  <span class="glyphicon glyphicon-minus"></span>
+								              </button>
+								          </span>
+								          <input type="text" style="text-align:center" id="extraPeople" name="quant[8]" class="form-control input-number" value="1" min="1" max="2000" data-ng-model="newroom.extraprice">
+								          <span class="input-group-btn">
+								              <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[8]">
+								                  <span class="glyphicon glyphicon-plus"></span>
+								              </button>
+								          </span>
+		     							</div>
+		     						 </div>
+				         	   	  </div>
+				         	   </div>
+				         	   
+				         	   
+				         	   <div>
+			         	  		  <h2>Amenities</h2>
+				         	   	  <div class="col-md-12">
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresTV" type="checkbox" data-ng-model="newroom.tv">
+						                     <label for="requiresTV">TV</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresInternet" type="checkbox" data-ng-model="newroom.internet">
+						                     <label for="requiresInternet">Internet</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresKitchen" type="checkbox" data-ng-model="newroom.kitchen">
+						                     <label for="requiresKitchen">Kitchen</label>
+						                 </h4>
+						         	  </div>
+					         	  </div>
+				         	   	  <div class="col-md-12">
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresHeating" type="checkbox" data-ng-model="newroom.heating">
+						                     <label for="requiresHeating">Heating</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresAirConditioning" type="checkbox" data-ng-model="newroom.airconditioning">
+						                     <label for="requiresAirConditioning">Air Conditioning</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresSmoking" type="checkbox" data-ng-model="newroom.smoking">
+						                     <label for="requiresSmoking">Smoking Allowed</label>
+						                 </h4>
+						         	  </div>
+					         	  </div>
+				         	   	  <div class="col-md-12">
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresElevator" type="checkbox" data-ng-model="newroom.elevator">
+						                     <label for="requiresElevator">Elevator</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresBreakfast" type="checkbox" data-ng-model="newroom.breakfast">
+						                     <label for="requiresBreakfast">Breakfast</label>
+						                 </h4>
+						         	  </div>
+						         	  <div class="col-md-4">
+							             <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+						                     <input id="requiresFamilyKidFriendly" type="checkbox" data-ng-model="newroom.familyfriendly">
+						                     <label for="requiresFamilyKidFriendly">Family/Kid Friendly</label>
+						                 </h4>
+						         	  </div>
+					         	  </div>
+
+				         	   </div>
+							</div>  
+			           </div>
+			         </div>
+			         <div id="descriptionbox" class="panel panel-default">
+			         	<div class="line" style="max-width:100%;">
+			         	   <h1 class="panel-heading" style="font-size:40px;">Description</h1>
+			         	   <div class="panel-body">
+							  <textarea rows="7" class="form-group" style="width:100%;font-size:20px;" name="Description" id="description" placeholder="Give us a description... " data-ng-model="newroom.description"></textarea>
+							</div>  
+			           </div>
+			         </div>
+			         <div id="rules" class="panel panel-default">
+			         	<div class="line" style="max-width:100%;">
+			         	   <h1 class="panel-heading" style="font-size:40px;">House Rules</h1>
+			         	   <div class="panel-body">
+				         	   <div class="col-md-12">
+				         	   	   <div class="col-md-3">
+				         	   	      <h4>Minimum Nights: </h4>
+				         	   	   </div>
+				         	   	   <div class="col-md-3">
+					         	      <div class="input-group">
+								         <span class="input-group-btn">
+								             <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[5]">
+								                 <span class="glyphicon glyphicon-minus"></span>
+								             </button>
+								         </span>
+								         <input type="text" style="text-align:center" id="minimumnights" name="quant[5]" class="form-control input-number" value="1" min="1" max="1000" data-ng-model="newroom.minimumnights">
+								         <span class="input-group-btn">
+								             <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[5]">
+								                 <span class="glyphicon glyphicon-plus"></span>
+								             </button>
+								         </span>
+		     						  </div>
+		     					  </div>
+				         	   </div>
+				         	   <div class="col-md-12">
+				         	   	    <div class="col-md-3">
+				         	   	    	<h4>Cancellation policy: </h4>
+				         	   	    </div>
+				                    <div class="radio radio-info radio-inline col-md-2">
+				                        <input id="cancelType1" type="radio" name="canceltype" data-ng-model="newroom.flexible">
+				                        <label for="cancelType1">flexible</label>
+				                    </div>
+				                    <div class="radio radio-info radio-inline col-md-2">
+				                        <input id="cancelType2" type="radio" name="canceltype" data-ng-model="newroom.moderate">
+				                        <label for="cancelType2">moderate</label>
+				                    </div>
+				                    <div class="radio radio-info radio-inline col-md-2">
+				                        <input id="cancelType3" type="radio" name="canceltype" data-ng-model="newroom.strict">
+				                        <label for="cancelType3">strict</label>
+				                    </div>
+				         	   </div>
+				               
+				         	   <div class="col-md-12">
+					         	   <div class="col-md-3">
+					         	   	   <h4>Requires: </h4>
+					         	   </div>
+					         	   <div class="col-md-2">
+						         	   <h4 class="checkbox checkbox-info checkbox-inline" style="margin-left:-15px;">
+					                      <input id="requireslicense" type="checkbox" data-ng-model="newroom.license">
+					                      <label for="requireslicense">License</label>
+					                   </h4>
+					         	   </div>
+				         	   </div>
+						   </div>  
+			           </div>
+			         </div>
+			         <div class="panel panel-default">
+			        	<div class="line" style="max-width:100%;">
+			         	   <div class="panel-body">
+							 <button type="submit" class="btn btn-default btn-info btn-lg right" form="myform">Create Room</button>
+						   </div>
+						</div>
+				     </div>
+			         
+			        <div id="listingsbox" class="panel panel-default">
+			        	<div class="line" style="max-width:100%;">
+			         	   <h1 class="panel-heading" style="font-size:40px;">My Listings</h1>
+			         	   <div class="panel-body">
+							  <div data-ng-repeat="l in Listings.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+							  	<article class="search-result panel panel-default" style="border-width: 3px; height:180px;border-style: solid; border-color: #C5F5FB; outline: 1px solid #B1C8FA;margin:3px;">
+									<div class="col-md-3" style="top:10px;">
+										<a href="http://localhost:8080/Traveler/RoomEditor.html?id={{l.id}}" class="thumbnail"><img src="{{l.pictureUrl}}" alt="{{l.name}}" /></a>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-8 excerpet" style="top:10px;">
+										<h3><a href="http://localhost:8080/Traveler/RoomEditor.html?id={{l.id}}" title="">{{l.name}}</a></h3>
+										<p>{{l.street}}</p>	
+										<div data-ng-if="l.beds>1"><p>{{l.roomType}} · {{l.beds}} beds</p></div>
+										<div data-ng-if="l.beds==1"><p>{{l.roomType}} · {{l.beds}} bed</p></div>
+										<p>Price : <span>€{{l.price}}</span></p>
+										<div class="row">
+											<div class="col-md-2" style="margin-right:10px;">
+											   <span class="stars">
+										          <span data-ng-style="{ 'width': getStars(l.reviewScoresRating/20) }"></span>
+										       </span>	
+										    </div>
+											<div class="col-md-8">
+											   <span>({{l.numberOfReviews}} Reviews)</span>
+										    </div>
+										</div>  
+									    		       
+									</div>
+									<span class="clearfix borda"></span>
+								</article>
+							 </div>	
+			   	  			 <pagination total-items="pagesNumber" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" max-size="10"></pagination>						
+						   </div>  
+			           </div>
+			        </div>
+			      </form>
+	       	   <div class="col-md-2"></div>
+		  	</section>
+		</div>
+	  </div>
+      			
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+      <script src="js/ui-bootstrap-tpls.min.js"></script> 
+      <script src="js/dirPagination.js"></script> 
+      <script src="js/ng-table.min.js"></script> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>    
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	  
+	<script>
+	   function chooseFile() {
+	      $("#fileInput").click();
+	   }
+	</script>
+	  
+	  <script>
+	   var app = angular.module("myRoomApp", ['ngCookies', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+		app.controller("HostController", ['$scope', '$http', '$cookies', '$location', '$window',  function($scope, $http, $cookies, $location, $window) {		
+
+			$scope.currentPage = 1;
+			$scope.viewby = 10;
+			$scope.itemsPerPage = 5;
+			$scope.maxSize = 5; //Number of pager buttons to show
+
+			$scope.setPage = function (pageNo) {
+			  $scope.currentPage = pageNo;
+			};
+
+			$scope.pageChanged = function() {
+			  console.log('Page changed to: ' + $scope.currentPage);
+			};
+
+			$scope.setItemsPerPage = function(num) {
+			  $scope.itemsPerPage = num;
+			  $scope.currentPage = 1; //reset to first paghe
+			}
+			
+		    $scope.loginflag = false;
+			var logincookie = $cookies.get('usernameCookie');
+			
+			if (logincookie == null) {
+	 	        $scope.loginflag = false;
+	 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Sign up';
+	 	        document.getElementById('signup').href = "RegistrationForm.html";
+	 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Login';
+	 	        document.getElementById('signin').href = 'LoginForm.html';
+	 	        document.getElementById('roleNavigation').style.visibility = 'hidden';
+	 	        document.getElementById('roleNavigation').innerHTML = ' ';
+			} else {
+	 	        $scope.loginflag = true;
+	 	        document.getElementById('signup').innerHTML = '<span class="glyphicon glyphicon-user"></span>Profile';
+	 	        document.getElementById('signup').href = "Profile.html";
+	 	        document.getElementById('signin').innerHTML = '<span class="glyphicon glyphicon-log-in"></span>Logout';
+	 	        document.getElementById('signin').href = "Logout.html";
+	 	        
+	 	        if ($cookies.get('roleCookie') == "Admin") {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+		 	        document.getElementById('roleNavigation').innerHTML = 'Admin';
+		 	        document.getElementById('roleNavigation').href = 'Administrator.html';
+	 	        }
+	 	        else if ($cookies.get('roleCookie') == "Host" || $cookies.get('roleCookie') == "Host-Renter") {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'visible';
+		 	        document.getElementById('roleNavigation').innerHTML = 'Host';
+		 	        document.getElementById('roleNavigation').href = 'Host.html';
+	 	        }
+	 	        else {
+	 	        	document.getElementById('roleNavigation').style.visibility = 'hidden';
+	 	        }
+			}
+						  
+			$scope.getStars = function(rating) {
+			    var val = parseFloat(rating);
+			    var size = val/5*100;
+			    return size + '%';
+			}
+
+			$scope.init = function() {	
+				
+				 $http({
+	                method : "GET",
+	                url : 'http://localhost:8080/Traveler/webapi/room/getListings/'+$cookies.get('userIDCookie')
+				 }).then(function successCallback(response) {
+					  $scope.Listings = response.data;
+		  			  $scope.pagesNumber = $scope.Listings.length;
+		         },function errorCallback(response) {
+		        	 
+		         });
+
+			}
+			
+			$scope.createRoom = function() {
+				
+				var temp;
+				var name, startDate, endDate, price, extraprice, roomType, city, beds, bathrooms, bedrooms, squarefeet, description, minimumnights, cancellationPolicy, requireslicense, accommodates;
+		 	    
+				name = document.getElementById("name").value;
+
+				startDate = myCalendar1.getFormatedDate();
+				endDate = myCalendar2.getFormatedDate();
+				
+				if(startDate != null && endDate != null && (new Date(startDate).getTime() > new Date(endDate).getTime())){
+					temp = startDate;
+					startDate = endDate;
+					endDate = temp;
+				}				
+				
+		 	    if (document.getElementById("roomType1").checked == true)
+		 	    {
+		 	    	roomType = "Private room";
+		 	    }
+		 	    else if (document.getElementById("roomType2").checked == true)
+		 	    {
+		 	    	roomType = "Entire home/apt";
+		 	    }
+		 	    else if (document.getElementById("roomType3").checked == true)
+		 	    {
+		 	    	roomType = "Shared room";
+		 	    }
+		 	    
+			    city = document.getElementById("city").value;
+			    beds = document.getElementById("beds").value;
+			    bathrooms = document.getElementById("bathrooms").value;
+			    bedrooms = document.getElementById("bedrooms").value;
+			    squarefeet = document.getElementById("squarefeet").value;
+			    description = document.getElementById("description").value;
+			    minimumnights = document.getElementById("minimumnights").value;
+			    
+			    if (document.getElementById("cancelType1").checked == true)
+		 	    {
+			    	cancellationPolicy = "flexible"; 
+		 	    }
+		 	    else if (document.getElementById("cancelType2").checked == true)
+		 	    {
+			    	cancellationPolicy = "moderate"; 
+		 	    }
+		 	    else if (document.getElementById("cancelType3").checked == true)
+		 	    {
+			    	cancellationPolicy = "strict"; 
+		 	    }
+
+			    if (document.getElementById("requireslicense").checked == true)
+			    	requireslicense = "t";
+			    else
+			    	requireslicense = "f";
+
+			    accommodates = document.getElementById("guests").value;
+
+				var roomEntity = {name:name, startDate:startDate, endDate:endDate, price:price, extraprice:extraprice, roomType:roomType, city:city, beds:beds, 
+							bathrooms:bathrooms, bedrooms:bedrooms, squarefeet:squarefeet, description:description, minimumnights:minimumnights,
+							cancellationPolicy:cancellationPolicy, requireslicense:requireslicense, accommodates:accommodates, requiresTV:requiresTV};
+				
+				$http({
+	                method : "POST",
+	                url : 'http://localhost:8080/Traveler/webapi/room/create/'+$cookies.get('userIDCookie'),
+	                data : angular.toJson(roomEntity),
+	                headers : { 'Content-Type' : 'application/json' }
+	            }).then(function successCallback(response) {
+	            	var roomid = response.data.id;
+	            	var tv ,internet , kitchen, heating, airconditioning, smoking, elevator, breakfast, friendly;
+					
+					if (document.getElementById("requiresTV").checked == true) tv = "true";
+					if (document.getElementById("requiresInternet").checked == true) internet = "true";
+					if (document.getElementById("requiresKitchen").checked == true) kitchen = "true";
+					if (document.getElementById("requiresHeating").checked == true) heating = "true";
+					if (document.getElementById("requiresAirConditioning").checked == true) airconditioning = "true";
+					if (document.getElementById("requiresSmoking").checked == true) smoking = "true";
+					if (document.getElementById("requiresElevator").checked == true) elevator = "true";
+					if (document.getElementById("requiresBreakfast").checked == true) breakfast = "true";
+					if (document.getElementById("requiresFamilyKidFriendly").checked == true) friendly = "true";
+
+					var amenity = {tv:tv, internet:internet, kitchen:kitchen, heating:heating, airconditioning:airconditioning, smoking:smoking, 
+							       elevator:elevator, breakfast:breakfast, friendly:friendly};
+
+					$http({
+		                method : "POST",
+		                url : 'http://localhost:8080/Traveler/webapi/room/edit/amenity/'+roomid,
+		                data : angular.toJson(amenity),
+		                headers : { 'Content-Type' : 'application/json' }
+		            }).then(function successCallback(response) {
+
+		            },function errorCallback(response) {
+		            
+		            });
+					
+	            },function errorCallback(response) {
+	            
+	            });
+
+				
+			    return;
+			    
+			}
+			
+			$scope.updateMapCity = function(){
+				var city = document.getElementById('city').value;
+		 	    document.getElementById('mymap').src = "https://www.google.com/maps/embed/v1/place?key= AIzaSyA9h-Nt1_qROpPI3hbzvv51k7hxHLDRKkU&q="+city;
+			}
+			
+			$scope.updateMapParameters = function(){
+				var latitude = document.getElementById('latitude').value;
+				var longitude = document.getElementById('longitude').value;
+		 	    document.getElementById('mymap').src = "https://www.google.com/maps/embed/v1/place?key= AIzaSyA9h-Nt1_qROpPI3hbzvv51k7hxHLDRKkU&q="+latitude+","+longitude;
+			}
+			
+		 }]);
+		
+		$(document).ready(function () {
+		    $(".btn-select").each(function (e) {
+		        var value = $(this).find("ul li.selected").html();
+		        if (value != undefined) {
+		            $(this).find(".btn-select-input").val(value);
+		            $(this).find(".btn-select-value").html(value);
+		        }
+		    });
+		});
+
+		$(document).on('click', '.btn-select', function (e) {
+		    e.preventDefault();
+		    var ul = $(this).find("ul");
+		    if ($(this).hasClass("active")) {
+		        if (ul.find("li").is(e.target)) {
+		            var target = $(e.target);
+		            target.addClass("selected").siblings().removeClass("selected");
+		            var value = target.html();
+		            $(this).find(".btn-select-input").val(value);
+		            $(this).find(".btn-select-value").html(value);
+		        }
+		        ul.hide();
+		        $(this).removeClass("active");
+		    }
+		    else {
+		        $('.btn-select').not(this).each(function () {
+		            $(this).removeClass("active").find("ul").hide();
+		        });
+		        ul.slideDown(300);
+		        $(this).addClass("active");
+		    }
+		});
+
+		$(document).on('click', function (e) {
+		    var target = $(e.target).closest(".btn-select");
+		    if (!target.length) {
+		        $(".btn-select").removeClass("active").find("ul").hide();
+		    }
+		});
+		
+		$(".show-more a").on("click", function() {
+		    var $this = $(this); 
+		    var $content = $this.parent().prev("div.content");
+		    var linkText = $this.text().toUpperCase();    
+		    
+		    if(linkText === "SHOW MORE"){
+		        linkText = "Show less";
+		        $content.switchClass("hideContent", "showContent", 400);
+		    } else {
+		        linkText = "Show more";
+		        $content.switchClass("showContent", "hideContent", 400);
+		    };
+
+		    $this.text(linkText);
+		});
+		
+		//plugin bootstrap minus and plus
+		//http://jsfiddle.net/laelitenetwork/puJ6G/
+		$('.btn-number').click(function(e){
+		    e.preventDefault();
+		    
+		    fieldName = $(this).attr('data-field');
+		    type      = $(this).attr('data-type');
+		    var input = $("input[name='"+fieldName+"']");
+		    var currentVal = parseInt(input.val());
+		    if (!isNaN(currentVal)) {
+		        if(type == 'minus') {
+		            
+		            if(currentVal > input.attr('min')) {
+		                input.val(currentVal - 1).change();
+		            } 
+		            if(parseInt(input.val()) == input.attr('min')) {
+		                $(this).attr('disabled', true);
+		            }
+
+		        } else if(type == 'plus') {
+
+		            if(currentVal < input.attr('max')) {
+		                input.val(currentVal + 1).change();
+		            }
+		            if(parseInt(input.val()) == input.attr('max')) {
+		                $(this).attr('disabled', true);
+		            }
+
+		        }
+		    } else {
+		        input.val(0);
+		    }
+		});
+		$('.input-number').focusin(function(){
+		   $(this).data('oldValue', $(this).val());
+		});
+		$('.input-number').change(function() {
+		    
+		    minValue =  parseInt($(this).attr('min'));
+		    maxValue =  parseInt($(this).attr('max'));
+		    valueCurrent = parseInt($(this).val());
+		    
+		    name = $(this).attr('name');
+		    if(valueCurrent >= minValue) {
+		        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+		    } else {
+		        alert('Sorry, the minimum value was reached');
+		        $(this).val($(this).data('oldValue'));
+		    }
+		    if(valueCurrent <= maxValue) {
+		        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+		    } else {
+		        alert('Sorry, the maximum value was reached');
+		        $(this).val($(this).data('oldValue'));
+		    }
+		    
+		    
+		});
+		$(".input-number").keydown(function (e) {
+		        // Allow: backspace, delete, tab, escape, enter and .
+		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+		             // Allow: Ctrl+A
+		            (e.keyCode == 65 && e.ctrlKey === true) || 
+		             // Allow: home, end, left, right
+		            (e.keyCode >= 35 && e.keyCode <= 39)) {
+		                 // let it happen, don't do anything
+		                 return;
+		        }
+		        // Ensure that it is a number and stop the keypress
+		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+		            e.preventDefault();
+		        }
+		    });
+	   </script>
+	   
+   </body>
+</html>
